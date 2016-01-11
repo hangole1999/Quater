@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<br>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+
+					<h1 class="header center orange-text">Account</h1>
+					<br><br>
+					<ul class="collection">
+						<li class="collection-item">
+							<div><p><i class="left material-icons">email</i>Email</p></div>
+							<div class="divider"></div>
+							<div><p><%= email %></p></div>
+						</li>
+						<li class="collection-item">
+							<div><p><i class="left material-icons">perm_identity</i>Identity</p></div>
+							<div class="divider"></div>
+							<div><p><%= id %></p></div>
+						</li>
+						<li class="collection-item">
+							<div><p><i class="left material-icons">account_box</i>Name</p></div>
+							<div class="divider"></div>
+							<div><p><%= name %></p></div>
+						</li>
+						<li class="collection-item">
+							<div><p><i class="left material-icons">account_circle</i>Call name</p></div>
+							<div class="divider"></div>
+							<div><p><%= callName %></p></div>
+						</li>
+						<li class="collection-item">
+							<div><p><i class="left material-icons">date_range</i>When create</p></div>
+							<div class="divider"></div>
+							<% var date = 0; try { date = createDate; } catch ( e ) { date = 0 } %>
+							<div><p><%= date %></p></div>
+						</li>
+					</ul>
+
+					<br><br>
+
+					<a href="/logout" class="btn-large waves-effect waves-light red left tooltipped" data-position="right" data-delay="50" data-tooltip="Logout"><i class="material-icons right">backspace</i>Logout</a>
+
+				<br><br><br><br></div>
+			</div>
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+			<script>
+				$(document).ready(function(){
+					$('.collapsible').collapsible({
+						accordion : false
+					});
+				});
+			</script>
+
+		</body>
+
+	</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>Hangole Web Site</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+	<style>
+
+		#myCanvas {
+			width: 800px;
+			height: 400px;
+		}
+
+	</style>
+
+	<style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}</style>
+
+	<title>Hangole game web server : BETA</title>
+
+</head>
+
+<body>
+	<!-- Scripts -->
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="js/materialize.js"></script>
+
+	<br>
+
+	<div class="section no-pad-bot" id="index-banner">
+		<div class="container">
+			<h1 class="header center orange-text">Hanrang</h1>
+			<p>Quater web game.<br>hello, <%= name %>.<br>You're call name is "<%= callName %>".</p>
+		</div>
+	</div>
+
+	<table>
+
+		<tr>
+
+			<td>
+				<div class="card-panel hoverable col s12 m4 small card small" id="playersInfo" style="overflow-x:auto; overflow-y:scroll; margin:0 auto; width:170px; height:300px;"></div>
+				<br>
+
+				<div class="row" id="name_input_set">
+					<div class="input-field col s8">
+						<input id="name" type="text" class="validate" onkeydown="inputNameAreaInput()">
+						<label for="name">Name</label>
+					</div>
+					<br>
+					<a class="waves-effect waves-circle waves-light btn-floating tooltipped" id="changeButton" onclick="changePress()" data-position="top" data-delay="50" data-tooltip="Change name"><i class="material-icons">perm_identity</i></a>
+				</div>
+
+			</td>
+
+			<td> 
+				<canvas id = "myCanvas" class="card-panel hoverable m5"></canvas>
+				<div class="input-field col s8">
+					<input id="handle" type="text" class="validate" onkeyup="keyupCanvas()" onkeydown="keydownCanvas()">
+					<label>Handle { ←: 'left', →: 'right', ↑: 'up', ↓: 'down', space: 'fast' } English only</label>
+				</div>
+				<div class="center">
+					<div id="prograssbar" class="preloader-wrapper big active">
+						<div class="spinner-layer spinner-blue">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+						<div class="spinner-layer spinner-red">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+						<div class="spinner-layer spinner-yellow">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+						<div class="spinner-layer spinner-green">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</td>
+
+			<td> 
+				<div class="card-panel hoverable col s12 m4 small card small" id="divArea" style="overflow-x:auto; overflow-y:scroll; margin:0 auto; width:250px; height:300px;">Welcome to Hangole web game server. <br>It's beta yet.<br></div>
+
+				<br>
+
+				<div class="row" id="send_input_set">
+					<div class="input-field col s10">
+						<input id="message" type="text" class="validate" onkeydown="inputAreaInput()">
+						<label for="chat">Chat</label>
+					</div>
+					<br>
+					<a class="waves-effect waves-circle waves-light btn-floating tooltipped" id="sendButton" onclick="sendPress()" data-position="top" data-delay="50" data-tooltip="Send"><i class="material-icons">send</i></a>
+				</div>
+
+			</td> 
+
+		</tr>
+
+	</table>
+
+	<div class="switch">
+		<label class="tooltipped" data-position="right" data-delay="50" data-tooltip="Notice">
+			Off
+			<input id="noticeCheckBox" type="checkbox" checked>
+			<span class="lever"></span>
+			On
+		</label>
+		<br>
+		<br>
+		<label class="tooltipped" data-position="right" data-delay="50" data-tooltip="Mouse">
+			Off
+			<input id="mouseCheckBox" type="checkbox" checked>
+			<span class="lever"></span>
+			On
+		</label>
+		<br>
+		<br>
+		<label class="tooltipped" data-position="right" data-delay="50" data-tooltip="Shape">
+			Square
+			<input id="shapeCheckBox" type="checkbox" onclick="transShape()">
+			<span class="lever"></span>
+			Circle
+		</label>
+	</div>
+
+	
+	
+
+	<script src="http://www.quater.zz.am:8885/socket.io/socket.io.js"></script>
+
+	<script src="js/client.js"></script>
+
+	<br>
+
+</body>
+</html>
+

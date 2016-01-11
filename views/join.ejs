@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+					<br><br>
+					<h1 class="header center orange-text">Join</h1>
+					<p class="header left red-text">Sorry, <br>Don't fill frequently used information. <br>죄송하지만, <br>자주 사용하는 정보를 기입하지 마세요.</p>
+					<br><br><br><br>
+					<div class="row center">
+						<form name="informations" action="/join" method="post">
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Email">
+								<input name="email" list="1" type="email" maxlength="30" length="30" required autofocus class="validate"/>
+								<label for="email">Email</label>
+							</div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="ID">
+								<input name="id" list="2" type="text" minlength="5" maxlength="20" length="20" required class="validate"/>
+								<label for="id">ID</label>
+							</div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Password">
+								<input name="password" list="3" type="password" minlength="5" maxlength="20" length="20" required class="validate"/>
+								<label for="password">Password</label>
+							</div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Confilm">
+								<input name="passwordConfilm" list="4" type="password" minlength="5" maxlength="20" length="20" required class="validate"/>
+								<label for="passwordConfilm">Password confilm</label>
+							</div>
+							<div id="ispwmatch"></div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Name">
+								<input name="name" list="5" type="text" minlength="2" maxlength="30" length="30" required class="validate"/>
+								<label for="name">Name</label>
+							</div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Call Name">
+								<input name="callName" list="6" type="text" minlength="2" maxlength="20" length="20" required class="validate"/>
+								<label for="callName">Call Name</label>
+							</div>
+							<br>
+							<button href="#!" type="submit" id="sendbutton" class="btn-large waves-effect waves-light orange right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Join"><i class="material-icons right">send</i>Join</button>
+						</form>
+					</div>
+
+					<br>
+					<br>
+					<br>
+
+				</div>
+			</div>
+
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+			<!-- <script src="js/join.js"></script> -->
+
+		</body>
+
+	</html>

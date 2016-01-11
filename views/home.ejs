@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+					<br><br>
+					<h1 class="header center orange-text">QUATER</h1>
+					<div class="row center">
+						<h5 class="header col s12 light">A modern hangole persnal Web page.</h5>
+					</div>
+					<br><br>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="section">
+
+					<div class="row center">
+						<!-- Game Area -->
+						<a href="/game" id="startbutton" class="z-depth-1 btn-large waves-effect waves-light orange tooltipped" data-position="right" data-delay="50" data-tooltip="Game"><i class="material-icons right">games</i>Start Game</a>
+					</div>
+					<br>
+
+					<!--   Icon Section   -->
+					<div class="row">
+					<div class="col s12 m4 offset-m4">
+					<div class="slider">
+						<ul class="card slides z-depth-5 hoverable white black-text">
+							<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Sharing">
+								<div class="icon-block" style="padding:30px;">
+				
+									<h2 class="center light-blue-text"><i class="material-icons">person_pin</i></h2>
+									<h5 class="center">Sharing position</h5>
+
+									<div class="divider"></div>
+
+									<p>실시간으로 좌표를 공유합니다. 이는 접속된 클라이언트에게 전송되어 같은 공간에 있는 듯한 느낌을 줍니다.</p>
+								</div>
+							</li>
+							<li class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Chat">
+								<div class="icon-block" style="padding:30px;"">
+									<h2 class="center light-blue-text"><i class="material-icons">chat_bubble_outline</i></h2>
+									<h5 class="center">Chatting</h5>
+
+									<div class="divider"></div>
+
+									<p class="light">커뮤니케이션을 위해 사람들은 대화를 할 수 있습니다.</p>
+								</div>
+							</li>
+							<li class="tooltipped" data-position="top" data-delay="50" data-tooltip="Naming">
+								<div class="icon-block" style="padding:30px;">
+									<h2 class="center light-blue-text"><i class="material-icons">tab</i></h2>
+									<h5 class="center">Change name</h5>
+
+									<div class="divider"></div>
+
+									<p class="light">사람을 구분하기 위해 이름을 공유합니다.</p>
+								</div>
+							</li>
+						</lu>
+					</div>
+					</div>
+					</div>
+
+				</div>
+			</div>
+
+			<br><br>
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+			<script>
+				function click () {
+
+					$('.slider').slider('next');
+					$('.slider').slider('pause');
+
+				}
+
+				$('body').on('click', click);
+
+				$(document).ready(function(){
+
+					$('.slider').slider({full_width: true});
+
+				});
+			</script>
+
+		</body>
+
+	</html>

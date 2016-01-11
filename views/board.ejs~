@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<br><br><br>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+
+					<h1 class="header center orange-text">Board</h1>
+
+					<br><br>
+
+					<div class="collection">
+
+						<% for ( var i = 0; i < content.length; i++ ) { %>
+
+							<a href="/post/?postNumber=<%= content[i].postNumber %>#!" class="collection-item"><%= content[i].title %></a>
+
+						<% } %>
+
+					</div>
+
+					<br><br>
+
+					<ul class="pagination"><%=index%> <%=count%> <%=content%> <%=content.length%>
+						<% if ( index < 5 ) { %>
+							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+						<% } else { %>
+							<li class="waves-effect"><a href="/board/?index=<%= index - 5 %>#!"><i class="material-icons">chevron_left</i></a></li>
+						<% } %>
+						<% for ( var i = 0; i < (count - 1) / 10; i++ ) { %>
+							<% if ( index/10 == i ) { %>
+								<li class="waves-effect active"><a href="#!"><%= i + 1 %></a></li>
+							<% } else { %>
+								<li class="waves-effect"><a href="/board/?index=<%= i * 10 %>#!"><%= i + 1 %></a></li>
+							<% } %>
+						<% } %>
+						<% if ( index > count - 5 ) { %>
+							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+						<% } else { %>
+							<li class="waves-effect"><a href="/board/?index=<%= index + 5 %>#!"><i class="material-icons">chevron_right</i></a></li>
+						<% } %>
+					</ul>
+
+					<a href="/postWrite#!" class="right btn-large waves-effect waves-light orange left tooltipped" data-position="left" data-delay="50" data-tooltip="Write"><i class="material-icons right">mode_edit</i>Write</a>
+
+				</div>
+			</div>
+
+			<br><br><br>
+
+			<!--  Scripts-->
+			<script src="/js/jquery.min.js"></script>
+			<script src="/js/materialize.js"></script>
+
+		</body>
+
+	</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			
+			<div class="slider fullscreen">
+				<ul class="slides">
+					<li>
+						<img src="asset/fashion.jpg"> <!-- random image -->
+						<div class="caption center-align">
+							<h3>Hello, </h3>
+							<h5 class="light grey-text text-lighten-3">Here is QUATER.</h5>
+						</div>
+					</li>
+					<li>
+						<img src="asset/farmland.jpg"> <!-- random image -->
+						<div class="caption left-align">
+							<h3>QUATER</h3>
+							<h5 class="light grey-text text-lighten-3">QUATER is multipurpose service.</h5>
+						</div>
+					</li>
+					<li>
+						<img src="asset/forest.jpg"> <!-- random image -->
+						<div class="caption right-align">
+							<h3>Hangole</h3>
+							<h5 class="light grey-text text-lighten-3">Develop by hangole.</h5>
+						</div>
+					</li>
+					<li>
+						<img src="asset/audience.jpg"> <!-- random image -->
+						<div class="caption center-align">
+							<h3>Thanks</h3>
+							<h5 class="light grey-text text-lighten-3">for visit here.</h5>
+							<a href="/frame" class="z-depth-5 btn waves-effect waves-light blue tooltipped" data-position="right" data-delay="50" data-tooltip="Go Home"><i class="material-icons right">home</i>Home</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+			<script>
+				function click () {
+
+					$('.slider').slider('next');
+					$('.slider').slider('pause');
+
+				}
+
+				$('body').on('click', click);
+
+				$(document).ready(function(){
+
+					$('.slider').slider({full_width: true});
+
+				});
+			</script>
+
+		</body>
+
+	</html>

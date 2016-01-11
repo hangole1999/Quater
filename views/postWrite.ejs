@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<br><br><br>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+
+					<h1 class="header center orange-text">Write</h1>
+
+					<form action="/post" method="POST">
+
+						<div class="row">
+							<div class="input-field col s6">
+								<input name="title" id="title" class="materialize-textarea" type="text" length="50" required autofocus></input>
+								<label for="title">Title</label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s12">
+								<textarea name="content" id="content" class="materialize-textarea" length="300" required></textarea>
+								<label for="content">Content</label>
+							</div>
+						</div>
+
+						<button type="submit" id="sendbutton" class="btn-large waves-effect waves-light orange right tooltipped" data-position="left" data-delay="50" data-tooltip="Write"><i class="material-icons right">send</i>Write</button>
+
+					</form>
+
+				</div>
+			</div>
+
+			<br><br><br>
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+
+		</body>
+
+	</html>

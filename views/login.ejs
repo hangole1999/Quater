@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+		<head>
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+			<title>QUATER</title>
+
+			<!-- CSS  -->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+		</head>
+
+		<body>
+
+			<br>
+
+			<div class="section no-pad-bot" id="index-banner">
+				<div class="container">
+					<br><br>
+					<h1 class="header center orange-text">Login</h1>
+					<p id="browserDiv" class="center"></p>
+					<div class="row center">
+						<form name="informations" action="/login" method="post">
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="ID">
+								<input name="id" list="1" type="text" minlength="5" maxlength="20" length="20" required autofocus class="validate"/>
+								<label for="id">ID</label>
+							</div>
+							<div class="input-field tooltipped" data-position="right" data-delay="50" data-tooltip="Password">
+								<input name="password" list="2" type="password" minlength="5" maxlength="20" length="20" required class="validate"/>
+								<label for="password">Password</label>
+							</div>
+							<br>
+							<button href="#!" type="submit" id="sendbutton" class="btn-large waves-effect waves-light orange right tooltipped" data-position="bottom" data-delay="50" data-tooltip="login"><i class="material-icons right">perm_identity</i>login</button>
+						</form>
+						<div id="isNormal"></div>
+						<a href="/join#!" class="btn-large waves-effect waves-light orange left tooltipped" data-position="bottom" data-delay="50" data-tooltip="Join"><i class="material-icons right">assignment_ind</i>join</a>
+					</div>
+
+					<br>
+					<br>
+					<br>
+
+				</div>
+			</div>
+
+			<!--  Scripts-->
+			<script src="js/jquery.min.js"></script>
+			<script src="js/materialize.js"></script>
+
+		</body>
+
+	</html>
