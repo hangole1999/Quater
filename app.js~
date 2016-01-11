@@ -12,7 +12,7 @@ var fs = require ( 'fs' );
 var mongojs = require ( 'mongojs' );
 var accountsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['accounts'] );
 var postsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['posts'] );
-var boardDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['board'] );
+var boardsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['board'] );
 var qs = require ('querystring');
 var logFileName = 'serverRunningLog.txt';
 var ejs = require ( 'ejs' );
@@ -439,7 +439,7 @@ app.post ( '/post', function ( request, response ) {
 
 		obj.writer = result[0].callName;
 
-		boardDB.board.find ( {}, function ( error, result ) {
+		boardsDB.boards.find ( {}, function ( error, result ) {
 
 			if ( error )
 				return;
@@ -448,7 +448,7 @@ app.post ( '/post', function ( request, response ) {
 
 			obj.postNumber = result[0].postPrimaryKey;
 
-			boardDB.board.update ( {}, { $set: { postPrimaryKey: (result[0].postPrimaryKey+1) } }, function ( error, result ) {
+			boardsDB.boards.update ( {}, { $set: { postPrimaryKey: (result[0].postPrimaryKey+1) } }, function ( error, result ) {
 
 				if ( error )
 					return;
@@ -463,6 +463,35 @@ app.post ( '/post', function ( request, response ) {
 				} );
 
 			} );
+
+		} );
+
+	} );
+
+} );
+
+app.delete ( '/post', function ( request, response ) {
+
+	if ( request.session.userids && request.session.passwords ) {
+		response.redirect ( '/?index=0' );
+		return;
+	}
+
+	var obj = request.body;
+
+	var accountObj = { id: request.session.userids, password: request.session.passwords };
+
+	accountsDB.accounts.find ( accountObj, function ( error, result ) {
+
+		if ( error )
+			return;
+
+		postsDB.posts.remove ( obj, function ( error, result ) {
+
+			if ( error )
+				return;
+
+			response.redirect ( '/board?index=0' );
 
 		} );
 

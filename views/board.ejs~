@@ -37,23 +37,25 @@
 
 					<br><br>
 
-					<ul class="pagination"><%=index%> <%=count%> <%=content%> <%=content.length%>
-						<% if ( index < 5 ) { %>
-							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-						<% } else { %>
-							<li class="waves-effect"><a href="/board/?index=<%= index - 5 %>#!"><i class="material-icons">chevron_left</i></a></li>
+					<ul class="pagination center"><!--<%=index%> <%=count%> <%=content%> <%=content.length%>-->
+						<% if ( index < 10 ) { %>
+							<a href="#!"><li class="waves-effect disabled"><i class="material-icons">chevron_left</i></li></a>
+						<% } else { var prevIndex = index - 50; prevIndex = prevIndex < 0 ? 0 : prevIndex; %>
+							<a href="/board/?index=<%= prevIndex %>#!"><li class="waves-effect"><i class="material-icons">chevron_left</i></li></a>
 						<% } %>
-						<% for ( var i = 0; i < (count - 1) / 10; i++ ) { %>
+						<% var startIndex = (index/10) - 5; startIndex = startIndex < 0 ? 0 : startIndex; %>
+						<% var endIndex = startIndex + 11; endIndex = endIndex >= count/10 ? count/10 : endIndex; %>
+						<% for ( var i = startIndex; i < endIndex; i++ ) { %>
 							<% if ( index/10 == i ) { %>
-								<li class="waves-effect active"><a href="#!"><%= i + 1 %></a></li>
+								<a href="#!"><li class="waves-effect active"><%= i + 1 %></li></a>
 							<% } else { %>
-								<li class="waves-effect"><a href="/board/?index=<%= i * 10 %>#!"><%= i + 1 %></a></li>
+								<a href="/board/?index=<%= i * 10 %>#!"><li class="waves-effect"><%= i + 1 %></li></a>
 							<% } %>
 						<% } %>
-						<% if ( index > count - 5 ) { %>
-							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-						<% } else { %>
-							<li class="waves-effect"><a href="/board/?index=<%= index + 5 %>#!"><i class="material-icons">chevron_right</i></a></li>
+						<% if ( index >= count - 10 ) { %>
+							<a href="#!"><li class="waves-effect disabled"><i class="material-icons">chevron_right</i></li></a>
+						<% } else { var nextIndex = index + 50; nextIndex = nextIndex >= count ? Math.floor (count / 10) * 10 : nextIndex; %>
+							<a href="/board/?index=<%= nextIndex %>#!"><li class="waves-effect"><i class="material-icons">chevron_right</i></li></a>
 						<% } %>
 					</ul>
 

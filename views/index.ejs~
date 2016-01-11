@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<script>//if ( location.origin !== 'http://quater.ze.am' ) { location.replace('http://quater.ze.am/'); }</script>
+<script>if ( location.origin !== 'http://quater.ze.am' ) { location.replace('http://quater.ze.am/'); }</script>
 	<html lang="en">
 
 		<head>
