@@ -25,6 +25,14 @@
 
 					<a href="#!" onclick="history.back()" class="btn-large waves-effect waves-light orange left tooltipped" data-position="right" data-delay="50" data-tooltip="Back"><i class="material-icons left">arrow_back</i>Back</a>
 
+					<% if ( isWriter ) { %>
+
+						<form action="/postDelete?postNumber=<%= postNumber %>&writer=<%= writer %>" method="POST">
+							<button type="submit" class="btn-large waves-effect waves-light orange right tooltipped" data-position="left" data-delay="50" data-tooltip="Delete"><i class="material-icons right">delete</i>Delete</button>
+						</form>
+
+					<% } %>
+
 					<br><br><br><br>
 
 					<div class="card z-depth-5 hoverable" style="padding:30px;overflow:auto;">

@@ -12,7 +12,7 @@ var fs = require ( 'fs' );
 var mongojs = require ( 'mongojs' );
 var accountsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['accounts'] );
 var postsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['posts'] );
-var boardsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['board'] );
+var boardsDB = mongojs ( 'hangole:skrdutekd091@127.0.0.1:10000/Quater', ['boards'] );
 var qs = require ('querystring');
 var logFileName = 'serverRunningLog.txt';
 var ejs = require ( 'ejs' );
@@ -203,6 +203,8 @@ app.get ( '/logout', function ( request, response ) {
 
 	delete request.session.passwords;
 
+	delete request.session.callName;
+
 	response.redirect ( '/login' );
 
 } );
@@ -283,12 +285,17 @@ app.get ( '/post', function ( request, response ) {
 
 			var ejsObj = result[0];
 
+			ejsObj.isWriter = false;
+
+			if ( result[0].writer == request.session.callName )
+				ejsObj.isWriter = true;
+ console.log ( result[0].callName ); console.log ( request.session.callName );
 			response.render ( 'post', ejsObj );
 			return;
 
 		}
 
-		response.redirect ( '/board' );
+		response.redirect ( '/board?index=0' );
 
 	} );
 
@@ -310,17 +317,30 @@ app.get ( '/postWrite', function ( request, response ) {
 // POST
 app.post ( '/join', function ( request, response ) {
 
+	// User IP
 	var userip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
 
+	// Loging
 	var body = '[SERVER]     [' + getTimeString() + '] ['+userip+'] ['+request.body.email+'/'+request.body.id+'/'+request.body.name+'/'+request.body.callName+']';
 	logWriteAppend ( body );
 
+	// Account information
 	var obj = request.body;
 
+	// Redirect setting
 	var location = '/join';
-
 	request.method = 'GET';
 
+	// Checking informations length
+	if ( obj.email.length > 30 || obj.id.length > 20 || obj.password.length > 20 || obj.name.length > 30 || obj.callName > 20 ||
+		obj.id.length < 5 || obj.password.length < 5 || obj.name.length < 2 || obj.callName < 2 ) {
+
+		response.redirect ( location );
+		return;
+
+	}
+
+	// Password confilm checking
 	if ( obj.password !== obj.passwordConfilm ) {
 
 		response.redirect ( location );
@@ -328,23 +348,30 @@ app.post ( '/join', function ( request, response ) {
 
 	}
 
+	// Delete password confilm content
 	delete obj.passwordConfilm;
 
+	// Writing when account create
 	obj.createDate = getTimeString();
 
+	// ID overlap checking
 	accountsDB.accounts.find ( { id: obj.id }, function ( error, result ) {
 
 		if ( !error && !result[0] )
+			// Email overlap checking
 			accountsDB.accounts.find ( { email: obj.email }, function ( error, result2 ) {
 
 				if ( !error && !result2[0] )
+					// Call Name overlap checking
 					accountsDB.accounts.find ( { callName: obj.callName }, function ( error, result3 ) {
 
 						if ( !error && !result3[0] )
+							// Create Account
 							accountsDB.accounts.insert ( obj, function ( error, result ) {
 
 								if ( error )
 									console.log ( '[DATABASE]   [' + getTimeString() + '] [insert] [error] [', obj, '] [', result, ']' );
+								// Successful
 								else {
 
 									location = '/login';
@@ -404,6 +431,7 @@ app.post ( '/login', function ( request, response ) {
 
 			request.session.userids = obj.id;
 			request.session.passwords = obj.password;
+			request.session.callName = result[0].callName;
 
 			//response.cookie ( 'userid', obj.id, { expire: new Date ( Date.now + 60 * 60 ), domain: 'www.quater.zz.am', signed: true } ).cookie ( 'password', obj.password, { expire: new Date ( Date.now + 60 * 60 ), domain: 'www.quater.zz.am', signed: true } );
 
@@ -470,23 +498,27 @@ app.post ( '/post', function ( request, response ) {
 
 } );
 
-app.delete ( '/post', function ( request, response ) {
+app.post ( '/postDelete', function ( request, response ) {
 
-	if ( request.session.userids && request.session.passwords ) {
-		response.redirect ( '/?index=0' );
+	if ( !request.session.userids || !request.session.passwords ) {
+		response.redirect ( '/login' );
 		return;
 	}
 
-	var obj = request.body;
+	var obj = request.query;
 
-	var accountObj = { id: request.session.userids, password: request.session.passwords };
+	obj.postNumber -= 0;
 
-	accountsDB.accounts.find ( accountObj, function ( error, result ) {
+	var requesterObj = { id: request.session.userids };
 
-		if ( error )
+	accountsDB.accounts.find ( { id: obj.writer }, function ( error, result ) {
+
+		if ( error || !result[0] || result[0].id !== requesterObj.id ) {
+			response.redirect ( '/board?index=0' );
 			return;
+		}
 
-		postsDB.posts.remove ( obj, function ( error, result ) {
+		postsDB.posts.remove ( { postNumber: obj.postNumber }, function ( error, result ) {
 
 			if ( error )
 				return;
