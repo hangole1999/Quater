@@ -23,12 +23,12 @@
 
 					<h1 class="header center orange-text">Post</h1>
 
-					<a href="#!" onclick="history.back()" class="btn-large waves-effect waves-light orange left tooltipped" data-position="right" data-delay="50" data-tooltip="Back"><i class="material-icons left">arrow_back</i>Back</a>
+					<a href="/board/?index=<%= index %>" class="btn-large waves-effect waves-light orange left tooltipped" data-position="right" data-delay="50" data-tooltip="Back"><i class="material-icons left">arrow_back</i>Back</a>
 
-					<% if ( isWriter ) { %>
+					<% if ( writer === requester ) { %>
 
 						<form action="/postDelete?postNumber=<%= postNumber %>&writer=<%= writer %>" method="POST">
-							<button type="submit" class="btn-large waves-effect waves-light orange right tooltipped" data-position="left" data-delay="50" data-tooltip="Delete"><i class="material-icons right">delete</i>Delete</button>
+							<button type="submit" class="btn-large waves-effect waves-light red right tooltipped" data-position="left" data-delay="50" data-tooltip="Delete"><i class="material-icons right">delete</i>Delete</button>
 						</form>
 
 					<% } %>
@@ -54,6 +54,41 @@
 							<% } %>
 							<%= content.slice ( start, i ) %>
 						</p>
+
+					</div>
+
+					<div class="card z-depth-5 hoverable" style="padding:30px;overflow:auto;">
+
+						<h4 class="orange-text"><i class="material-icons">comment</i> Comments</h4>
+
+						<% for ( var i = 0; i < comment.length; i++ ) { %>
+
+							<div class="divider"></div>
+
+							<h5><%= comment[i].writer %></h5>
+
+							<div class="row">
+
+								<p class="col s11" style="overflow:auto;"><%= comment[i].content %></p>
+
+								<% if ( comment[i].writer === requester ) { %>
+
+									<form class="" action="/commentDelete?postNumber=<%= postNumber %>&commentNumber=<%= comment[i].commentNumber %>&writer=<%= comment[i].writer %>" method="POST">
+										<button type="submit" class="btn waves-effect waves-light red right tooltipped" data-position="left" data-delay="50" data-tooltip="Delete"><i class="material-icons right">delete</i>Del</button>
+									</form>
+
+								<% } %>
+
+							</div>
+
+						<% } %>
+
+						<div class="divider"></div><br>
+
+						<form class="row" action="/comment?postNumber=<%=postNumber%>" method="POST">
+							<br><input name="commentContent" id="commentContent" class="materialize-textarea left col s9" type="text" length="300" required></input>
+							<button type="submit" class="btn-large waves-effect waves-light right col s2 orange tooltipped" data-position="top" data-delay="50" data-tooltip="Comment"><i class="material-icons left">comment</i>Comment</button>
+						</form>
 
 					</div>
 

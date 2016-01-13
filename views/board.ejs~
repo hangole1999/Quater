@@ -39,23 +39,23 @@
 
 					<ul class="pagination center"><!--<%=index%> <%=count%> <%=content%> <%=content.length%>-->
 						<% if ( index < 10 ) { %>
-							<a href="#!"><li class="waves-effect disabled"><i class="material-icons">chevron_left</i></li></a>
+							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
 						<% } else { var prevIndex = index - 50; prevIndex = prevIndex < 0 ? 0 : prevIndex; %>
-							<a href="/board/?index=<%= prevIndex %>#!"><li class="waves-effect"><i class="material-icons">chevron_left</i></li></a>
+							<li class="waves-effect"><a href="/board/?index=<%= prevIndex %>#!"><i class="material-icons">chevron_left</i></a></li>
 						<% } %>
 						<% var startIndex = (index/10) - 5; startIndex = startIndex < 0 ? 0 : startIndex; %>
 						<% var endIndex = startIndex + 11; endIndex = endIndex >= count/10 ? count/10 : endIndex; %>
 						<% for ( var i = startIndex; i < endIndex; i++ ) { %>
 							<% if ( index/10 == i ) { %>
-								<a href="#!"><li class="waves-effect active"><%= i + 1 %></li></a>
+								<li class="waves-effect active"><a href="#!"><%= i + 1 %></a></li>
 							<% } else { %>
-								<a href="/board/?index=<%= i * 10 %>#!"><li class="waves-effect"><%= i + 1 %></li></a>
+								<li class="waves-effect"><a href="/board/?index=<%= i * 10 %>#!"><%= i + 1 %></a></li>
 							<% } %>
 						<% } %>
 						<% if ( index >= count - 10 ) { %>
-							<a href="#!"><li class="waves-effect disabled"><i class="material-icons">chevron_right</i></li></a>
+							<li class="waves-effect disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 						<% } else { var nextIndex = index + 50; nextIndex = nextIndex >= count ? Math.floor (count / 10) * 10 : nextIndex; %>
-							<a href="/board/?index=<%= nextIndex %>#!"><li class="waves-effect"><i class="material-icons">chevron_right</i></li></a>
+							<li class="waves-effect"><a href="/board/?index=<%= nextIndex %>#!"><i class="material-icons">chevron_right</i></a></li>
 						<% } %>
 					</ul>
 

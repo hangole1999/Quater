@@ -273,6 +273,10 @@ app.get ( '/post', function ( request, response ) {
 
 	var obj = request.query;
 
+	var index = obj.index;
+
+	delete obj.index;
+
 	obj.postNumber -= 0;
 
 	postsDB.posts.find ( obj, function ( error, result ) {
@@ -285,10 +289,9 @@ app.get ( '/post', function ( request, response ) {
 
 			var ejsObj = result[0];
 
-			ejsObj.isWriter = false;
+			ejsObj.requester = request.session.callName;
 
-			if ( result[0].writer == request.session.callName )
-				ejsObj.isWriter = true;
+			ejsObj.index = index;
 
 			response.render ( 'post', ejsObj );
 			return;
@@ -375,7 +378,7 @@ app.post ( '/join', function ( request, response ) {
 								else {
 
 									location = '/login';
-									var body = '[JOIN]      [' + getTimeString() + '] ['+userip+'] ['+request.body.email+'/'+request.body.id+'/'+request.body.name+'/'+request.body.callName+']';
+									var body = '[JOIN]       [' + getTimeString() + '] ['+userip+'] ['+request.body.email+'/'+request.body.id+'/'+request.body.name+'/'+request.body.callName+']';
 									logWriteAppend ( body );
 
 									response.redirect ( location );
@@ -481,6 +484,8 @@ app.post ( '/post', function ( request, response ) {
 				if ( error )
 					return;
 
+				obj.commentPrimaryKey = 0;
+
 				postsDB.posts.insert ( obj, function ( error, result ) {
 
 					if ( error )
@@ -532,6 +537,71 @@ app.post ( '/postDelete', function ( request, response ) {
 } );
 
 app.post ( '/comment', function ( request, response ) {
+
+	if ( !request.session.userids || !request.session.passwords ) {
+		response.redirect ( '/login' );
+		return;
+	}
+
+	var obj = request.query;
+
+	obj.postNumber -= 0;
+
+	obj.writeDate = getTimeString();
+
+	var commentPrimaryKey;
+
+	postsDB.posts.find ( { postNumber: obj.postNumber }, function ( error, result ) {
+
+		if ( error )
+			return;
+
+		commentPrimaryKey = result[0].commentPrimaryKey;
+
+		postsDB.posts.update ( { postNumber: obj.postNumber }, { $push: { comment: { writer: request.session.callName, content: request.body.commentContent, writeDate: obj.writeDate, commentNumber: result[0].commentPrimaryKey } } }, function ( error, result ) {
+
+			if ( error )
+				return;
+
+			postsDB.posts.update ( { postNumber: obj.postNumber }, { $set: { commentPrimaryKey: commentPrimaryKey + 1 } }, function ( error, result ) {
+
+				if ( error )
+					return;
+
+				request.method = 'GET';
+
+				response.redirect ( '/post?postNumber=' + obj.postNumber );
+
+			} );
+
+		} );
+
+	} );
+
+} );
+
+app.post ( '/commentDelete', function ( request, response ) {
+
+	if ( !request.session.userids || !request.session.passwords || request.query.writer !== request.session.callName ) {
+		response.redirect ( '/login' );
+		return;
+	}
+
+	var obj = request.query;
+
+	obj.postNumber -= 0;
+	obj.commentNumber -= 0;
+
+	postsDB.posts.update ( { postNumber: obj.postNumber }, { $pull: { comment: { commentNumber: obj.commentNumber } } }, function ( error, result ) {
+
+		if ( error )
+			return;
+
+		request.method = 'GET';
+
+		response.redirect ( '/post?postNumber=' + obj.postNumber );
+
+	} );
 
 } );
 
